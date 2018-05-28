@@ -13,14 +13,12 @@ self.addEventListener('install', function(event) {
         'js/dbhelper.js',
         'js/restaurant_info.js',
         'css/styles.css',
-        'data/restaurants.json',
-        new Request('https://maps.googleapis.com/maps/api/js?key=AIzaSyDDyV7Vq36GivqI5jN_8G4SmlgKIP0K0zM&libraries=places&callback=initMap', { mode: 'no-cors' })
+        'data/restaurants.json'
       ].concat(restaurants)
       );
     })
   );
 });
-
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(

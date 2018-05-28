@@ -233,12 +233,9 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   line-height: 1.1;
 }
 
-#restaurant-pic {
+#restaurant-img {
   margin: 0 auto;
   padding: 20px;
-}
-
-#restaurant-img {
 	max-width: 100%;
 }
 #restaurant-address {
@@ -306,32 +303,6 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
         flex-direction: column;
   }
 }
-
-/* .restaurants-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-@media screen and (max-width: 500px) {
-  .restaurants-container {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-}
-
-@media screen and (min-width: 501px) and (max-width: 980px) {
-  .restaurants-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-}
-
-@media screen and (min-width: 981px) {
-
-} */
-
 
 @media screen and (max-width: 1024px) {
   .inside #map-container {
