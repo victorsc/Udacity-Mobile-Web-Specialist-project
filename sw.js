@@ -9,8 +9,7 @@ let urlsToCache = [
   'js/main.js',
   'js/dbhelper.js',
   'js/restaurant_info.js',
-  'css/styles.css',
-  'data/restaurants.json'
+  'css/styles.css'
 ].concat(restaurants);
 
 let CACHE_V1 = 'myCache';
@@ -26,7 +25,7 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
-      return response || fetch(event.request, {mode: 'no-cors'});
+      return response || fetch(event.request);
     })
   );
 });
