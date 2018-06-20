@@ -1,10 +1,20 @@
 {
   "name": "udacity-restaurant",
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.0.0",
   "description": "",
   "scripts": {
+    "https": "node startServer.js -S",
+    "http" : "node startServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Victor Scaiceanu",
-  "license": "ISC"
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorsc/mws-restaurant-stage-1.git"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
 }
