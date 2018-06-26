@@ -6,6 +6,8 @@ for (i=1; i<=10; i++) {
 
 let urlsToCache = [
   '/',
+  'js/idb.js',
+  'js/indexeddb.js',
   'js/main.js',
   'js/dbhelper.js',
   'js/restaurant_info.js',

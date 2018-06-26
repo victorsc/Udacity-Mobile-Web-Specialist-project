@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "https": "node startServer.js -S",
-    "http" : "node startServer.js",
+    "http": "node startServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Victor Scaiceanu",
@@ -15,6 +15,7 @@
     "url": "https://github.com/victorsc/mws-restaurant-stage-1.git"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "idb": "^2.1.3"
   }
 }
