@@ -21,14 +21,12 @@ function saveRestaurantsDataLocally(restaurants) {
     return Promise.all(restaurants.map(restaurant => store.put(restaurant)))
       .catch(() => {
         tx.abort();
-        throw Error('[ERROR] Restaurants were not added to the store.');
+        throw Error('Restaurants not added.');
       });
   });
 }
 
-// Get restaurants data from object store restaurants.
 function getLocalRestaurantsData() {
-  console.log("getting restaurants locally");
   return restaurantDb.then(db => {
     const tx = db.transaction('restaurants', 'readonly');
     const store = tx.objectStore('restaurants');
