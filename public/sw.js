@@ -1,16 +1,19 @@
 let restaurants = [];
 for (i=1; i<=10; i++) {
-  restaurants.push("img/" + i + ".jpg");
+  restaurants.push("img/" + i + "_300.jpg");
+  restaurants.push("img/" + i + "_600.jpg");
+  restaurants.push("img/" + i + "_800.jpg");
   restaurants.push("restaurant.html?id=" + i);
 }
 
 let urlsToCache = [
   '/',
-  'js/idb.js',
-  'js/indexeddb.js',
-  'js/main.js',
-  'js/dbhelper.js',
-  'js/restaurant_info.js',
+  'js/main.min.js',
+  'js/restaurant.min.js',
+  // 'js/indexeddb.js',
+  // 'js/main.js',
+  // 'js/dbhelper.js',
+  // 'js/restaurant_info.js',
   'css/styles.css'
 ].concat(restaurants);
 
