@@ -1,3 +1,4 @@
+// Credits for the lazy loading mechanism go to my colleague Evgeny Kuznetsov https://github.com/Evgeny81
 function lazyLoad() {
     let lazy = document.getElementsByClassName('restaurant-img');
 
