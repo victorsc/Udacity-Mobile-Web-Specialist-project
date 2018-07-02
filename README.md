@@ -6,7 +6,13 @@ For the **Restaurant Reviews** projects, you will incrementally convert a static
 
 ### Environment
 
-Works for node v8.9.4 and npm v6.1.0
+Works for node v8.9.4 and npm v6.1.0.
+
+If you encounter installation or build issue, start a web server in the `public` folder.
+
+```
+python -m SimpleHTTPServer 8080
+```
 
 ### Installing
 
