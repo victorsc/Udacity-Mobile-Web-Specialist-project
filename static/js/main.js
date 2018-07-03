@@ -1,8 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
+  cuisines, 
+  map,
+  markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -10,19 +10,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
-  registerServiceWorker();
 });
-
-
-window.registerServiceWorker = () => {
-  if(!navigator.serviceWorker) return;
-
-  navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(function(registration) {
-    console.log('Service worker registration succeeded:', registration);
-  }).catch(function(error) {
-    console.log('Service worker registration failed:', error);
-  });
-}
 
 /**
  * Fetch all neighborhoods and set their HTML.

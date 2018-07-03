@@ -9,12 +9,13 @@ const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 const jpegtran = require('imagemin-jpegtran');
 const responsive = require('gulp-responsive');
-
+const JS_FOLDER = 'static/js/';
 const jsFiles = [
-    'static/js/lazy_loading.js',
-    'static/js/idb.js',
-    'static/js/indexeddb.js',
-    'static/js/dbhelper.js'
+    JS_FOLDER + 'swloader.js',
+    JS_FOLDER + 'lazy_loading.js',
+    JS_FOLDER + 'idb.js',
+    JS_FOLDER + 'indexeddb.js',
+    JS_FOLDER + 'dbhelper.js'
 ];
 
 gulp.task('clean', () => {
@@ -35,7 +36,7 @@ gulp.task('css-minify', () => {
 });
 
 gulp.task('scripts', () => {
-    return gulp.src(jsFiles.concat('static/js/main.js'))
+    return gulp.src(jsFiles.concat(JS_FOLDER + 'main.js'))
         .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(concat('main.min.js'))
@@ -45,7 +46,7 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('restaurant-script', () => {
-    return gulp.src(jsFiles.concat('static/js/restaurant_info.js'))
+    return gulp.src(jsFiles.concat(JS_FOLDER + 'restaurant_info.js'))
         .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(concat('restaurant.min.js'))
