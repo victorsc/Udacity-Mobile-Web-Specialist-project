@@ -233,6 +233,11 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   line-height: 1.1;
 }
 
+#favorite-button {
+  font-size: 20pt;
+  color : black;
+}
+
 #restaurant-img {
   margin: 0 auto;
   padding: 20px 0;

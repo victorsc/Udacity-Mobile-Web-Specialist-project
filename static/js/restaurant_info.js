@@ -46,7 +46,6 @@ window.fetchRestaurantFromURL = (callback) => {
       });
     });
   }
-  
 }
 
 /**
@@ -55,6 +54,17 @@ window.fetchRestaurantFromURL = (callback) => {
 window.fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+
+  const button = document.getElementById('favorite-button');
+  if (restaurant.is_favorite == 'true') {
+    button.setAttribute('aria-pressed', 'true');
+    button.setAttribute('aria-label', 'Unmark as favorite');
+    button.style.color = 'orange';
+  } else {
+    button.setAttribute('aria-pressed', 'false');
+    button.setAttribute('aria-label', 'Mark as favorite');
+    button.style.color = 'black';
+  }
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -163,4 +173,23 @@ window.getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+window.toggleFavorite = (event) => {
+  const button = event.target;
+  if (button.getAttribute('aria-pressed') == 'false') {
+    DBHelper.toggleFavorite(self.restaurant.id, true, () => {
+      self.restaurant.is_favorite = 'true';
+      button.setAttribute('aria-pressed', 'true');
+      button.setAttribute('aria-label', 'Unmark as favorite');
+      button.style.color = 'orange';
+    });
+  } else {
+    DBHelper.toggleFavorite(self.restaurant.id, false, () => {
+      self.restaurant.is_favorite = 'false';
+      button.setAttribute('aria-pressed', 'false');
+      button.setAttribute('aria-label', 'Mark as favorite');
+      button.style.color = 'black';
+    });
+  }
 }

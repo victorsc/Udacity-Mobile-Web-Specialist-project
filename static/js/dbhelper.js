@@ -68,6 +68,20 @@ class DBHelper {
     });
   }
 
+  static toggleFavorite(id, favorite, callback) {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return fetch('http://localhost:1337/restaurants/' + id + '?is_favorite=' + favorite, {
+      method: 'PUT',
+      headers: headers
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      callback();
+    });
+  }
+
 
   /**
    * Fetch a restaurant by its ID.
