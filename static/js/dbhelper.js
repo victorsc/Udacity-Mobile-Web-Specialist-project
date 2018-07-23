@@ -9,14 +9,14 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     const port = 1337 // Change this to your server port
-    return `http://localhost:${port}/restaurants`;
+    return `http://localhost:${port}/`;
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL)
+    fetch(DBHelper.DATABASE_URL + 'restaurants')
       .then(response => response.json())
       .then(restaurants => {
         saveRestaurantsDataLocally(restaurants);
@@ -34,6 +34,40 @@ class DBHelper {
         });
       });
   }
+
+  static getReviewsForRestaurant(id, callback) {
+    fetch(DBHelper.DATABASE_URL + 'reviews/?restaurant_id=' + id)
+      .then(response => response.json())
+      .then(reviews => {
+        saveReviewsDataLocally(reviews);
+        callback(reviews);
+      })
+      .catch(err => {
+        console.log('[DEBUG] Network requests have failed, this is expected if offline');
+        getLocalReviewsData(id).then(offlineData => {
+          callback(offlineData);
+        });
+      });
+  }
+  /**
+   * add a review
+   */
+  static reviewRestaurant(data) {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    const body = JSON.stringify(data);
+    return fetch('http://localhost:1337/reviews/', {
+      method: 'POST',
+      headers: headers,
+      body: body
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.text();
+    });
+  }
+
 
   /**
    * Fetch a restaurant by its ID.

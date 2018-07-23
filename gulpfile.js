@@ -23,8 +23,6 @@ gulp.task('clean', () => {
 });
 
 gulp.task('copy-static', () => {
-    gulp.src('static/css/*')
-        .pipe(gulp.dest('public/css'));
     gulp.src('static/*')
         .pipe(gulp.dest('public'));
 });
@@ -87,3 +85,10 @@ gulp.task('build', cb => {
         'images',
         cb);
 });
+
+gulp.task('watch', () => {
+    gulp.watch('static/*.html', ['copy-static']);
+    gulp.watch('static/css/**/*.css', ['css-minify']);
+    gulp.watch('static/js/**/*.js', ['scripts', 'restaurant-script']);
+    gulp.watch('static/sw.js', ['copy-static']);
+  });

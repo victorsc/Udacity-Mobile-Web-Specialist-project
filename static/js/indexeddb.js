@@ -1,13 +1,12 @@
 
 function createDB() {
-  return idb.open('restaurants-db', 2, function(upgradeDb) {
-    switch (upgradeDb.oldVersion) {
-      case 0:
-        // backup
-      case 1:
-        if (!upgradeDb.objectStoreNames.contains('restaurants')) {
-          upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
-        }
+  return idb.open('restaurants-db', 1, function(upgradeDb) {
+    if (!upgradeDb.objectStoreNames.contains('restaurants')) {
+      upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+    }
+    if (!upgradeDb.objectStoreNames.contains('reviews')) {
+      const reviewsOS = upgradeDb.createObjectStore('reviews', {keyPath: 'id', autoIncrement: true});
+      reviewsOS.createIndex('restaurant_id', 'restaurant_id', {unique: false});
     }
   });
 }
@@ -26,10 +25,31 @@ function saveRestaurantsDataLocally(restaurants) {
   });
 }
 
+function saveReviewsDataLocally(reviews) {
+  return restaurantDb.then(db => {
+    const tx = db.transaction('reviews', 'readwrite');
+    const store = tx.objectStore('reviews');
+    return Promise.all(reviews.map(review => store.put(review)))
+      .catch(() => {
+        tx.abort();
+        throw Error('Reviews not added.');
+      });
+  });
+}
+
 function getLocalRestaurantsData() {
   return restaurantDb.then(db => {
     const tx = db.transaction('restaurants', 'readonly');
     const store = tx.objectStore('restaurants');
     return store.getAll();
+  });
+}
+
+function getLocalReviewsData(id) {
+  return restaurantDb.then(db => {
+    const tx = db.transaction('reviews', 'readonly');
+    const store = tx.objectStore('reviews');
+    const index = store.index('restaurant_id');
+    return index.getAll(id);
   });
 }

@@ -24,13 +24,13 @@ window.initMap = () => {
  * Get current restaurant from page URL.
  */
 window.fetchRestaurantFromURL = (callback) => {
+  const id = parseInt(getParameterByName('id'));
+  if (!id) { // no id found in URL
+    callback('No restaurant id in URL', null);
+  }
   if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
-  }
-  const id = getParameterByName('id');
-  if (!id) { // no id found in URL
-    callback('No restaurant id in URL', null);
   } else {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
       self.restaurant = restaurant;
@@ -39,9 +39,14 @@ window.fetchRestaurantFromURL = (callback) => {
         return;
       }
       fillRestaurantHTML();
-      callback(null, restaurant)
+      callback(null, restaurant);
+      DBHelper.getReviewsForRestaurant(id, (reviews) => {
+        self.restaurant.reviews = reviews;
+        fillReviewsHTML();
+      });
     });
   }
+  
 }
 
 /**
@@ -66,8 +71,6 @@ window.fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  fillReviewsHTML();
 }
 
 /**
@@ -122,7 +125,7 @@ window.createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = new Date(review.createdAt).toLocaleDateString();
   li.appendChild(date);
 
   const rating = document.createElement('p');
