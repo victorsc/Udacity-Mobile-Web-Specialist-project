@@ -52,6 +52,34 @@
       <section id="reviews-container">
         <ul id="reviews-list"></ul>
       </section>
+      <section id="review-form">
+        <h2>Write a review</h2>
+        <p>
+          <label for="reviewer-name">
+            <span>Name</span><br/>
+          </label>
+          <input type="text" id="reviewer-name" name="reviewer-name">
+        </p>
+        <p>
+          <label for="review-rating">
+              <span>Rating</span>
+            </label>
+            <select id="review-rating" name="review-rating">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected>5</option>
+            </select>
+        </p>
+        <p>
+          <label for="review-comment">
+            <span>Comment</span><br/>
+          </label>
+          <textarea id="review-comment" rows="4" cols="50"></textarea>
+        </p>
+        <button onclick="scheduleSendReview()">Send review</button>
+      </section>
       <!-- End reviews -->
     </main>
     <!-- End main -->

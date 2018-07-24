@@ -1,5 +1,5 @@
 let restaurants = [];
-for (i=1; i<=10; i++) {
+for (let i=1; i<=10; i++) {
   restaurants.push("img/" + i + "_300.jpg");
   restaurants.push("img/" + i + "_800.jpg");
   restaurants.push("restaurant.html?id=" + i);
@@ -42,4 +42,30 @@ self.addEventListener('activate', function(event) {
       )
     })
   )
+});
+
+self.addEventListener('sync', function(event) {
+  console.log('im in the sync');
+  if (event.tag == 'sendRestaurantReview') {
+    event.waitUntil(getReviewsFromOutbox().then(reviews => {
+      console.log('sending reviews');
+      return Promise.all(reviews.map(function(review) {
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const body = JSON.stringify(review);
+        return fetch('http://localhost:1337/reviews/', {
+          method: 'POST',
+          headers: headers,
+          body: body
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if (data.result === 'success') {
+            return deleteReviewFromOutbox(review.id);
+          }
+        })
+      }).catch(err => {
+        console.log(err);
+      }));
+    }));
+  }
 });

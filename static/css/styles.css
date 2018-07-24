@@ -243,10 +243,12 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   padding: 20px 0;
 	max-width: 100%;
 }
+
 #restaurant-address {
   font-size: 12pt;
   margin: 10px 0px;
 }
+
 #restaurant-cuisine {
   background-color: #333;
   color: #ddd;
@@ -260,7 +262,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   width: 100%;
   max-width: 800px;
 }
-#restaurant-container, #reviews-container {
+
+#restaurant-container, #reviews-container, #review-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -270,20 +273,24 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   padding: 140px 40px 30px;
   width: 50%;
 }
-#reviews-container {
+
+#reviews-container, #review-form {
   padding: 30px 0 80px;
 }
-#reviews-container h2 {
+
+#reviews-container h2, #review-form h2 {
   color: #f58500;
   font-size: 24pt;
   font-weight: 300;
   letter-spacing: -1px;
   padding-bottom: 1pt;
 }
+
 #reviews-list {
   margin: 0;
   padding: 0;
 }
+
 #reviews-list li {
   background-color: #fff;
   border: 2px solid #f3f3f3;
@@ -296,10 +303,18 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   width: 85%;
   border-radius: 5px 50px;
 }
+
 #reviews-list li p {
   margin: 0 0 10px;
 }
+
 #restaurant-hours td {
+  color: #666;
+}
+
+#review-form span {
+  font-size: 12pt;
+  font-weight: 300;
   color: #666;
 }
 
@@ -314,7 +329,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
       width: 100%;
   }
   #restaurant-container,
-  #reviews-container {
+  #reviews-container,
+  #review-form {
       width: 100%;
   }
 

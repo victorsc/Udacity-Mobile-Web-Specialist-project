@@ -18,12 +18,18 @@ const jsFiles = [
     JS_FOLDER + 'dbhelper.js'
 ];
 
+const swFiles = [
+    JS_FOLDER + 'idb.js',
+    JS_FOLDER + 'indexeddb.js',
+    'static/sw.js'
+];
+
 gulp.task('clean', () => {
     return del.sync('public');
 });
 
 gulp.task('copy-static', () => {
-    gulp.src('static/*')
+    gulp.src(['static/*', '!static/sw.js'])
         .pipe(gulp.dest('public'));
 });
 
@@ -51,6 +57,16 @@ gulp.task('restaurant-script', () => {
         .pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('sw-script', () => {
+    return gulp.src(swFiles)
+        .pipe(sourcemaps.init())
+        .pipe(babel())
+        .pipe(concat('sw.js'))
+        // .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('public'));
 });
 
 gulp.task('images', () => {
@@ -82,6 +98,7 @@ gulp.task('build', cb => {
         'scripts',
         'restaurant-script',
         'copy-static',
+        'sw-script',
         'images',
         cb);
 });

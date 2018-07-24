@@ -8,6 +8,9 @@ function createDB() {
       const reviewsOS = upgradeDb.createObjectStore('reviews', {keyPath: 'id', autoIncrement: true});
       reviewsOS.createIndex('restaurant_id', 'restaurant_id', {unique: false});
     }
+    if (!upgradeDb.objectStoreNames.contains('outbox')) {
+      upgradeDb.createObjectStore('outbox', { autoIncrement : true, keyPath: 'id' });
+    }
   });
 }
 
@@ -51,5 +54,26 @@ function getLocalReviewsData(id) {
     const store = tx.objectStore('reviews');
     const index = store.index('restaurant_id');
     return index.getAll(id);
+  });
+}
+
+function putReviewInOutbox(review) {
+  return restaurantDb.then(db => {
+    const tx = db.transaction('outbox', 'readwrite');
+    return tx.objectStore('outbox').put(review);
+  });
+}
+
+function getReviewsFromOutbox() {
+  return restaurantDb.then(db => {
+    const tx = db.transaction('outbox', 'readonly');
+    return tx.objectStore('outbox').getAll();
+  });
+}
+
+function deleteReviewFromOutbox(id) {
+  return restaurantDb.then(db => {
+    const tx = db.transaction('outbox', 'readwrite');
+    return tx.objectStore('outbox').delete(id);
   });
 }

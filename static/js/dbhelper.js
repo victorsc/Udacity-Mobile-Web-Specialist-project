@@ -52,7 +52,7 @@ class DBHelper {
   /**
    * add a review
    */
-  static reviewRestaurant(data) {
+  static reviewRestaurant(data, callback) {
     const headers = new Headers({'Content-Type': 'application/json'});
     const body = JSON.stringify(data);
     return fetch('http://localhost:1337/reviews/', {
@@ -64,7 +64,7 @@ class DBHelper {
       if (!response.ok) {
         throw Error(response.statusText);
       }
-      return response.text();
+      callback();
     });
   }
 

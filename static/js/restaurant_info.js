@@ -1,6 +1,15 @@
 let restaurant;
 let map;
 
+const encodeHTML = (s) => {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
+const cleanForm = () => {
+  document.getElementById('reviewer-name').value = "";
+  document.getElementById('review-comment').value = "";
+}
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -193,3 +202,30 @@ window.toggleFavorite = (event) => {
     });
   }
 }
+
+window.scheduleSendReview = () => {
+  const data = {
+    restaurant_id: self.restaurant.id,
+    name: self.encodeHTML(document.getElementById('reviewer-name').value),
+    rating: document.getElementById('review-rating').value,
+    comments: self.encodeHTML(document.getElementById('review-comment').value)
+  };
+
+  putReviewInOutbox(data).then(function() {
+    self.cleanForm();
+    return navigator.serviceWorker.ready.then(function(swRegistration) {
+      console.log('registering the sync'); 
+      return swRegistration.sync.register('sendRestaurantReview');
+    });
+  }).catch(function(err) {
+    console.error(err); 
+  });
+}
+
+// window.sendReview = () => {
+//   return DBHelper.reviewRestaurant(data, () => {
+//     location.reload(true);
+//   });
+// }
+
+
