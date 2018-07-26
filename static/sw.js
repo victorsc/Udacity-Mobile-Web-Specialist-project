@@ -57,15 +57,17 @@ self.addEventListener('sync', function(event) {
           headers: headers,
           body: body
         }).then(function(response) {
+          console.log('review sent');
           return response.json();
         }).then(function(data) {
           if (data.result === 'success') {
+            console.log('deleting reviews from idb');
             return deleteReviewFromOutbox(review.id);
           }
         })
-      }).catch(err => {
+      })).catch(err => {
         console.log(err);
-      }));
+      });
     }));
   }
 });
