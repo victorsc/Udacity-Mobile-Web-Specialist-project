@@ -12,6 +12,7 @@ const responsive = require('gulp-responsive');
 const JS_FOLDER = 'static/js/';
 const jsFiles = [
     JS_FOLDER + 'swloader.js',
+    JS_FOLDER + 'toastr.min.js',
     JS_FOLDER + 'lazy_loading.js',
     JS_FOLDER + 'idb.js',
     JS_FOLDER + 'indexeddb.js',
@@ -36,6 +37,7 @@ gulp.task('copy-static', () => {
 gulp.task('css-minify', () => {
     return gulp.src('static/css/*.css')
         .pipe(cleanCSS())
+        .pipe(concat('styles.css'))
         .pipe(gulp.dest('public/css'));
 });
 

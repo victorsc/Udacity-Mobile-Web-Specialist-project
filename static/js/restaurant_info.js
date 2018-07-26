@@ -225,6 +225,7 @@ window.scheduleSendReview = () => {
 const channel = new BroadcastChannel('reviews');
 channel.addEventListener('message', e => {
   console.log('got the review on the client');
+  toastr.info('Are you the 6 fingered man?');
   const review = JSON.parse(e.data);
   document.getElementById('reviews-list').appendChild(createReviewHTML(review));
 });
