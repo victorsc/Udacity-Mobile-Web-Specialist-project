@@ -376,20 +376,20 @@ self.addEventListener('sync', function (event) {
     event.waitUntil(getReviewsFromOutbox().then(function (reviews) {
       console.log('sending reviews');
       return Promise.all(reviews.map(function (review) {
-        var headers = new Headers({ 'Content-Type': 'application/json' });
+        var headers = new Headers({
+          'Content-Type': 'application/json'
+        });
         var body = JSON.stringify(review);
         return fetch('http://localhost:1337/reviews/', {
           method: 'POST',
           headers: headers,
           body: body
         }).then(function (response) {
-          console.log('review sent');
           return response.json();
         }).then(function (data) {
-          if (data.result === 'success') {
-            console.log('deleting reviews from idb');
-            return deleteReviewFromOutbox(review.id);
-          }
+          console.log('review sent');
+          console.log('deleting reviews from idb');
+          return deleteReviewFromOutbox(review.id);
         });
       })).catch(function (err) {
         console.log(err);

@@ -50,20 +50,20 @@ self.addEventListener('sync', function(event) {
     event.waitUntil(getReviewsFromOutbox().then(reviews => {
       console.log('sending reviews');
       return Promise.all(reviews.map(function(review) {
-        const headers = new Headers({'Content-Type': 'application/json'});
+        const headers = new Headers({
+          'Content-Type': 'application/json'
+        });
         const body = JSON.stringify(review);
         return fetch('http://localhost:1337/reviews/', {
           method: 'POST',
           headers: headers,
           body: body
         }).then(function(response) {
-          console.log('review sent');
           return response.json();
         }).then(function(data) {
-          if (data.result === 'success') {
-            console.log('deleting reviews from idb');
-            return deleteReviewFromOutbox(review.id);
-          }
+          console.log('review sent');
+          console.log('deleting reviews from idb');
+          return deleteReviewFromOutbox(review.id);
         })
       })).catch(err => {
         console.log(err);
