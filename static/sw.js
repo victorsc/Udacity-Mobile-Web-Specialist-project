@@ -62,6 +62,11 @@ self.addEventListener('sync', function(event) {
           return response.json();
         }).then(function(data) {
           console.log('review sent');
+          review.createdAt = Date.now();
+          const message = JSON.stringify(review);
+          console.log('informing the client');
+          const channel = new BroadcastChannel('reviews');
+          channel.postMessage(message);
           console.log('deleting reviews from idb');
           return deleteReviewFromOutbox(review.id);
         })

@@ -222,10 +222,9 @@ window.scheduleSendReview = () => {
   });
 }
 
-// window.sendReview = () => {
-//   return DBHelper.reviewRestaurant(data, () => {
-//     location.reload(true);
-//   });
-// }
-
-
+const channel = new BroadcastChannel('reviews');
+channel.addEventListener('message', e => {
+  console.log('got the review on the client');
+  const review = JSON.parse(e.data);
+  document.getElementById('reviews-list').appendChild(createReviewHTML(review));
+});
