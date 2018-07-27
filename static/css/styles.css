@@ -318,6 +318,12 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   color: #666;
 }
 
+#review-form {
+  display: block;
+  margin-left: 70px;
+}
+
+
 @media screen and (max-width: 500px) {
   .filter-options {
         flex-direction: column;
