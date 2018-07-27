@@ -214,18 +214,18 @@ window.scheduleSendReview = () => {
   putReviewInOutbox(data).then(function() {
     self.cleanForm();
     return navigator.serviceWorker.ready.then(function(swRegistration) {
-      console.log('registering the sync'); 
+      console.log('registering the sync');
       return swRegistration.sync.register('sendRestaurantReview');
     });
   }).catch(function(err) {
-    console.error(err); 
+    console.error(err);
   });
 }
 
 const channel = new BroadcastChannel('reviews');
 channel.addEventListener('message', e => {
   console.log('got the review on the client');
-  toastr.info('Are you the 6 fingered man?');
+  // toastr.info('Are you the 6 fingered man?');
   const review = JSON.parse(e.data);
   document.getElementById('reviews-list').appendChild(createReviewHTML(review));
 });
