@@ -21,6 +21,11 @@ Clone the repo and run:
 ```
 npm install
 ```
+#### Backend
+
+For the REST API used by the restaurant webapp, please follow the instructions at [udacity](https://github.com/udacity/mws-restaurant-stage-3).
+
+
 
 ### Building
 
