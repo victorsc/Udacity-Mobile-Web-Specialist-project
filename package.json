@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "https": "node startServer.js -S",
-    "http": "node startServer.js",
+    "http": "node startServer.js -p 8083",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp build",
     "watch": "gulp watch"

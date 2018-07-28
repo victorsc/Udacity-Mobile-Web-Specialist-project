@@ -11,7 +11,7 @@ Works for node v8.9.4 and npm v6.1.0.
 If you encounter installation or build issue, start a web server in the `public` folder.
 
 ```
-python -m SimpleHTTPServer 8080
+python -m SimpleHTTPServer 8083
 ```
 
 ### Installing
@@ -36,7 +36,7 @@ It will trigger the gulp tasks in order.
 npm run http
 ```
 
-You can now test the app at `http://localhost:8080`.
+You can now test the app at `http://localhost:8083`.
 
 ### Running on https
 
@@ -54,7 +54,7 @@ rm csr.pem
 ```
 npm run https -- [options]
 ```
-The https server will run by default on port 8080 and will serve files under `public/`.
+The https server will run by default on port 8083 and will serve files under `public/`.
 For the complete list of options, please check the http-server node module [readme](https://github.com/indexzero/http-server#available-options).
 
 In case of difficulty with browser caching the script files, you may use the following command instead:
