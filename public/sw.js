@@ -355,7 +355,7 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  event.respondWith(caches.match(event.request).then(function (response) {
+  event.respondWith(caches.match(event.request, { ignoreSearch: true }).then(function (response) {
     return response || fetch(event.request);
   }));
 });
@@ -371,7 +371,6 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('sync', function (event) {
-  console.log('im in the sync');
   if (event.tag == 'sendRestaurantReview') {
     event.waitUntil(getReviewsFromOutbox().then(function (reviews) {
       console.log('sending reviews');
